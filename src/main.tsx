@@ -8,23 +8,8 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Layout from './components/Layout.tsx';
-import Home from './components/Home.tsx';
+import Home from './components/Home/Home.tsx';
 import BlogDetails from './components/BlogDetails.tsx';
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Layout />,
-//     children: [
-//       { path: '', element: <Home /> },
-//       { path: 'about', element: <h1>About Page</h1> },
-//       {
-//         path: 'contact',
-//         element: <h1>Contact Page</h1>,
-//       },
-//     ],
-//   },
-// ]);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +17,7 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="about" element={<h1>About Page</h1>} />
       <Route path="contact" element={<h1>Contact Page</h1>} />
-      <Route path="blog/:id" element={<BlogDetails />} />
+      <Route path="blogs/:id" element={<BlogDetails />} />
     </Route>
   )
 );
