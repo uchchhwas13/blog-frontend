@@ -4,3 +4,8 @@ export type SignUpFormDataType = {
   password: string;
   profileImage: File | null;
 };
+
+export type SignInFormDataType = {
+  email: string;
+  password: string;
+};
