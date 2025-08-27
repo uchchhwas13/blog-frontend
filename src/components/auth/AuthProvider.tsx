@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { AuthContext } from './authContext';
-
-export type User = {
-  fullName: string;
-  isLoggedIn: boolean;
-};
+import type { UserAuthInfo } from './authContext';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User>({ fullName: '', isLoggedIn: false });
+  const initialUserAuthInfo: UserAuthInfo = {
+    fullName: '',
+    isLoggedIn: false,
+    accessToken: '',
+    refreshToken: '',
+    userId: '',
+  };
+  const [user, setUser] = useState<UserAuthInfo>(initialUserAuthInfo);
 
-  const setUserInfo = (fullName: string) => {
-    setUser({ fullName, isLoggedIn: true });
+  const setUserInfo = (userInfo: UserAuthInfo) => {
+    setUser(userInfo);
   };
 
   const clearAuthState = () => {
-    setUser({ fullName: '', isLoggedIn: false });
+    setUser(initialUserAuthInfo);
   };
 
   return (
