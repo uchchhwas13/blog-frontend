@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Layout from './components/Layout.tsx';
 import Home from './components/Home/Home.tsx';
-import BlogDetails from './components/BlogDetails.tsx';
+import BlogDetails from './components/BlogDetails/BlogDetails.tsx';
 import { SignUpPage } from './components/auth/Signup.tsx';
 import { SignInPage } from './components/auth/Signin.tsx';
 import { AuthProvider } from './components/auth/AuthProvider.tsx';
