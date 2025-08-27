@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/blog-logo.png';
-
-type User = {
-  fullName: string;
-  isLoggedIn: boolean;
-};
-
-const mockUser: User = {
-  fullName: 'John Doe',
-  isLoggedIn: true,
-};
+import { useAuth } from './auth/useAuth';
+import type { User } from './auth/AuthProvider';
 
 type NavItemProps = { to: string; label: string };
 
@@ -99,11 +91,11 @@ function AuthButtons({ user, onLogout }: AuthButtonProps) {
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<User>(mockUser);
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    setUser({ fullName: '', isLoggedIn: false });
     setIsOpen(false);
+    logout();
   };
 
   return (
