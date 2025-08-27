@@ -1,55 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-type SignUpFormDataType = {
-  fullname: string;
-  email: string;
-  password: string;
-  profileImage: File | null;
-};
-
-const initialFormData: SignUpFormDataType = {
-  fullname: '',
-  email: '',
-  password: '',
-  profileImage: null,
-};
-
-type InputFieldProps = {
-  label: string;
-  name: string;
-  type?: string;
-  value: string;
-  required?: boolean;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const InputField = ({
-  label,
-  name,
-  type = 'text',
-  value,
-  required = false,
-  placeholder,
-  onChange,
-}: InputFieldProps) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1">
-      {label} {required && <span className="text-red-500">*</span>}
-    </label>
-    <input
-      type={type}
-      name={name}
-      value={value}
-      onChange={onChange}
-      required={required}
-      placeholder={placeholder}
-      className="w-full px-4 py-2 border border-gray-300 rounded-lg 
-                 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-    />
-  </div>
-);
+import type { SignUpFormDataType } from '../../type/auth.types';
+import { InputField } from './Inputfield';
+import { SubmitButton } from './SubmitButton';
 
 type FileUploadProps = {
   label: string;
@@ -72,22 +25,13 @@ const ImageFileUpload = ({ label, name, onChange }: FileUploadProps) => (
   </div>
 );
 
-type SubmitButtonProps = {
-  text: string;
-};
-
-const SubmitButton = ({ text }: SubmitButtonProps) => (
-  <button
-    type="submit"
-    className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 
-               text-white font-semibold rounded-lg shadow-md 
-               transition duration-300"
-  >
-    {text}
-  </button>
-);
-
 export const SignUpPage = (): React.JSX.Element => {
+  const initialFormData: SignUpFormDataType = {
+    fullname: '',
+    email: '',
+    password: '',
+    profileImage: null,
+  };
   const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
