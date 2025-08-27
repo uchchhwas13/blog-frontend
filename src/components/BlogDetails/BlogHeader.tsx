@@ -4,7 +4,7 @@ type BlogHeaderProps = {
   blog: BlogContent;
 };
 
-export function BlogHeader({ blog }: BlogHeaderProps) {
+export const BlogHeader = ({ blog }: BlogHeaderProps) => {
   return (
     <div className="max-w-3xl mx-auto flex flex-col items-center gap-4 bg-gray-800 text-white rounded-2xl shadow-lg p-6">
       <h1 className="text-3xl font-bold text-center">{blog.title}</h1>
@@ -30,4 +30,4 @@ export function BlogHeader({ blog }: BlogHeaderProps) {
       </span>
     </div>
   );
-}
+};

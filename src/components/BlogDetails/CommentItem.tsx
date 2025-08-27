@@ -1,10 +1,9 @@
 import type { Comment } from '../../type/blog.types';
-
 type CommentItemProps = {
   comment: Comment;
 };
 
-export function CommentItem({ comment }: CommentItemProps) {
+export const CommentItem = ({ comment }: CommentItemProps) => {
   return (
     <div
       key={comment.id}
@@ -21,4 +20,4 @@ export function CommentItem({ comment }: CommentItemProps) {
       </div>
     </div>
   );
-}
+};
