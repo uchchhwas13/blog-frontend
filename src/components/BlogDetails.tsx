@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchBlogDetails } from '../services/blogService';
-import type { BlogDetailsModel } from '../type/types';
+import type { BlogDetailsModel } from '../type/blog.types';
 
 const BlogDetails = () => {
   const { id } = useParams<{ id: string }>();

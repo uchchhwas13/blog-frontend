@@ -1,5 +1,5 @@
 import React from 'react';
-import type { BlogModel } from '../../type/types';
+import type { BlogModel } from '../../type/blog.types';
 import { Link } from 'react-router-dom';
 
 type BlogItemProps = {

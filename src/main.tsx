@@ -10,7 +10,7 @@ import {
 import Layout from './components/Layout.tsx';
 import Home from './components/Home/Home.tsx';
 import BlogDetails from './components/BlogDetails.tsx';
-import { SignUpPage } from './components/signup/signup.tsx';
+import { SignUpPage } from './components/auth/Signup.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { BlogModel } from '../../type/types';
+import type { BlogModel } from '../../type/blog.types';
 import { fetchBlogList } from '../../services/blogService';
 import { BlogItem } from './BlogItem';
 

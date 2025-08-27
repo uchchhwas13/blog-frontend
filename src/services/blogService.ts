@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { BlogDetailsResponse, BlogListResponse } from '../type/types';
+import type { BlogDetailsResponse, BlogListResponse } from '../type/blog.types';
 
 const API_BASE = 'http://localhost:3000';
 
