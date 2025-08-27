@@ -10,6 +10,7 @@ import {
 import Layout from './components/Layout.tsx';
 import Home from './components/Home/Home.tsx';
 import BlogDetails from './components/BlogDetails.tsx';
+import { SignUpPage } from './components/signup/signup.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<h1>About Page</h1>} />
       <Route path="contact" element={<h1>Contact Page</h1>} />
       <Route path="blogs/:id" element={<BlogDetails />} />
+      <Route path="login" element={<h1>Log in</h1>} />
+      <Route path="signup" element={<SignUpPage />} />
     </Route>
   )
 );
