@@ -1,21 +1,93 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+type SignUpFormDataType = {
+  fullname: string;
+  email: string;
+  password: string;
+  profileImage: File | null;
+};
+
+const initialFormData: SignUpFormDataType = {
+  fullname: '',
+  email: '',
+  password: '',
+  profileImage: null,
+};
+
+type InputFieldProps = {
+  label: string;
+  name: string;
+  type?: string;
+  value: string;
+  required?: boolean;
+  placeholder?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const InputField = ({
+  label,
+  name,
+  type = 'text',
+  value,
+  required = false,
+  placeholder,
+  onChange,
+}: InputFieldProps) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      placeholder={placeholder}
+      className="w-full px-4 py-2 border border-gray-300 rounded-lg 
+                 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    />
+  </div>
+);
+
+type FileUploadProps = {
+  label: string;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const ImageFileUpload = ({ label, name, onChange }: FileUploadProps) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">
+      {label}
+    </label>
+    <input
+      type="file"
+      name={name}
+      accept="image/*"
+      onChange={onChange}
+      className="w-full border border-gray-300 rounded-lg p-2 bg-gray-50"
+    />
+  </div>
+);
+
+type SubmitButtonProps = {
+  text: string;
+};
+
+const SubmitButton = ({ text }: SubmitButtonProps) => (
+  <button
+    type="submit"
+    className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 
+               text-white font-semibold rounded-lg shadow-md 
+               transition duration-300"
+  >
+    {text}
+  </button>
+);
+
 export const SignUpPage = (): React.JSX.Element => {
-  type SignUpFormDataType = {
-    fullname: string;
-    email: string;
-    password: string;
-    profileImage: File | null;
-  };
-
-  const initialFormData: SignUpFormDataType = {
-    fullname: '',
-    email: '',
-    password: '',
-    profileImage: null,
-  };
-
   const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,76 +112,42 @@ export const SignUpPage = (): React.JSX.Element => {
         </h1>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
-          {/* Fullname */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="fullname"
-              value={formData.fullname}
-              onChange={handleChange}
-              required
-              placeholder="Enter your full name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
+          <InputField
+            label="Full Name"
+            name="fullname"
+            value={formData.fullname}
+            onChange={handleChange}
+            required
+            placeholder="Enter your full name"
+          />
 
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
+          <InputField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="Enter your email"
+          />
 
-          {/*Password*/}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
+          <InputField
+            label="Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            placeholder="Enter your password"
+          />
 
-          {/* Profile Image (Optional, single upload) */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Profile Image (Optional)
-            </label>
+          <ImageFileUpload
+            label="Profile Image (Optional)"
+            name="profileImage"
+            onChange={handleChange}
+          />
 
-            <input
-              type="file"
-              name="profileImage"
-              accept="image/*"
-              onChange={handleChange}
-              className="w-full text-blue-300"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300"
-          >
-            Sign Up
-          </button>
+          <SubmitButton text="Sign Up" />
         </form>
 
         <p className="text-sm text-gray-600 text-center mt-4">
