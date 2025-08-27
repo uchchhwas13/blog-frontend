@@ -97,10 +97,10 @@ export const SignUpPage = (): React.JSX.Element => {
         <p className="text-sm text-gray-600 text-center mt-4">
           Already have an account?{' '}
           <Link
-            to="/login"
+            to="/signin"
             className="text-blue-600 hover:underline font-medium"
           >
-            Tap to login
+            Tap to signin
           </Link>
         </p>
       </div>
