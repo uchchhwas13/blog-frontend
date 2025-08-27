@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { SignInFormDataType } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
 import { signin } from '../../services/authService';
+import { useAuth } from './useAuth';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInFormDataType = {
@@ -12,6 +13,8 @@ export const SignInPage = (): React.JSX.Element => {
   };
   const [credentials, setCredentials] = useState(initialCredentials);
   const [errorMessage, setErrorMessage] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,10 +25,13 @@ export const SignInPage = (): React.JSX.Element => {
     e.preventDefault();
     setErrorMessage('');
     const response = await signin(credentials);
-    if (!response.success) {
+    if (!response.success || !response.data || response.error) {
       setErrorMessage('Incorrect email or password');
     } else {
       setCredentials(initialCredentials);
+      const fullName = response.data.user.name;
+      login(fullName);
+      navigate('/');
     }
   };
 
