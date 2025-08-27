@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const SignUpPage = (): React.JSX.Element => {
-  type signUpFormDataType = {
+  type SignUpFormDataType = {
     fullname: string;
     email: string;
     password: string;
     profileImage: File | null;
   };
 
-  const initialFormData: signUpFormDataType = {
+  const initialFormData: SignUpFormDataType = {
     fullname: '',
     email: '',
     password: '',
