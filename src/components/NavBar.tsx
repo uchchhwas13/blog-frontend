@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/blog-logo.png';
 import { useAuth } from './auth/useAuth';
 import type { User } from './auth/AuthProvider';
+import { logOut } from '../services/authService';
 
 type NavItemProps = { to: string; label: string };
 
@@ -91,11 +92,12 @@ function AuthButtons({ user, onLogout }: AuthButtonProps) {
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, clearAuthState } = useAuth();
 
   const handleLogout = () => {
     setIsOpen(false);
-    logout();
+    clearAuthState();
+    logOut();
   };
 
   return (

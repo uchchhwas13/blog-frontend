@@ -13,7 +13,7 @@ export const SignInPage = (): React.JSX.Element => {
   };
   const [credentials, setCredentials] = useState(initialCredentials);
   const [errorMessage, setErrorMessage] = useState('');
-  const { login } = useAuth();
+  const { setUserInfo } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export const SignInPage = (): React.JSX.Element => {
     } else {
       setCredentials(initialCredentials);
       const fullName = response.data.user.name;
-      login(fullName);
+      setUserInfo(fullName);
       navigate('/');
     }
   };

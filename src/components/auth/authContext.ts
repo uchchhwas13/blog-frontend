@@ -7,8 +7,8 @@ type User = {
 
 export type AuthContextType = {
   user: User;
-  login: (fullName: string) => void;
-  logout: () => void;
+  setUserInfo: (fullName: string) => void;
+  clearAuthState: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(

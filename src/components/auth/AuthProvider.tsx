@@ -10,16 +10,16 @@ export type User = {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User>({ fullName: '', isLoggedIn: false });
 
-  const login = (fullName: string) => {
+  const setUserInfo = (fullName: string) => {
     setUser({ fullName, isLoggedIn: true });
   };
 
-  const logout = () => {
+  const clearAuthState = () => {
     setUser({ fullName: '', isLoggedIn: false });
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, setUserInfo, clearAuthState }}>
       {children}
     </AuthContext.Provider>
   );
