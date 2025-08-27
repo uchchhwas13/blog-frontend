@@ -25,11 +25,25 @@ const BlogDetails = () => {
     return <div className="text-center mt-20 text-gray-500">Loading...</div>;
   }
 
+  const handleAddComment = async (content: string) => {
+    if (!id) return;
+
+    //const newComment = await postComment(id, content);
+    // if (newComment) {
+    //   setModel((prev) =>
+    //     prev ? { ...prev, comments: [...prev.comments, newComment] } : prev
+    //   );
+    // }
+  };
+
   return (
     <div className="w-full pt-10">
       <BlogHeader blog={model.blog} />
       <BlogBody body={model.blog.body} />
-      <CommentSection comments={model.comments} />
+      <CommentSection
+        comments={model.comments}
+        onAddComment={handleAddComment}
+      />
     </div>
   );
 };
