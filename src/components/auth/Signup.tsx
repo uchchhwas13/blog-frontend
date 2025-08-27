@@ -45,7 +45,6 @@ export const SignUpPage = (): React.JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitted Data:', formData);
   };
 
   return (

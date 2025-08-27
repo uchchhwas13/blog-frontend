@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { BlogDetailsResponse, BlogListResponse } from '../type/blog.types';
-
-const API_BASE = 'http://localhost:3000';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
+import { API_BASE } from './constants';
 
 export const fetchBlogList = async (): Promise<BlogListResponse> => {
   try {
@@ -32,12 +32,3 @@ export const fetchBlogDetails = async (
     };
   }
 };
-
-function extractErrorMessage(error: unknown): string {
-  if (axios.isAxiosError(error)) {
-    const apiError = error.response?.data as { error?: string } | undefined;
-    if (apiError?.error) return apiError.error;
-    return error.message;
-  }
-  return 'Unknown error occurred';
-}
