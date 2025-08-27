@@ -5,6 +5,8 @@ import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
 import { signin } from '../../services/authService';
 import { useAuth } from './useAuth';
+import type { SignInSuccessResponse } from '../../type/auth.types';
+import type { UserAuthInfo } from './authContext';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInFormDataType = {
@@ -29,10 +31,22 @@ export const SignInPage = (): React.JSX.Element => {
       setErrorMessage('Incorrect email or password');
     } else {
       setCredentials(initialCredentials);
-      const fullName = response.data.user.name;
-      setUserInfo(fullName);
+      const userInfo = createUserAuthInfoFromResponse(response.data);
+      setUserInfo(userInfo);
       navigate('/');
     }
+  };
+
+  const createUserAuthInfoFromResponse = (
+    response: SignInSuccessResponse
+  ): UserAuthInfo => {
+    return {
+      fullName: response.user.name,
+      isLoggedIn: true,
+      accessToken: response.accessToken,
+      refreshToken: response.refreshToken,
+      userId: response.user.id,
+    };
   };
 
   return (
