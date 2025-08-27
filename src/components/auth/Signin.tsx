@@ -11,18 +11,22 @@ export const SignInPage = (): React.JSX.Element => {
     password: '',
   };
   const [credentials, setCredentials] = useState(initialCredentials);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCredentials(initialCredentials);
-    signin(credentials).then((response) => {
-      console.log(response.data);
-    });
+    setErrorMessage('');
+    const response = await signin(credentials);
+    if (!response.success) {
+      setErrorMessage('Incorrect email or password');
+    } else {
+      setCredentials(initialCredentials);
+    }
   };
 
   return (
@@ -52,6 +56,10 @@ export const SignInPage = (): React.JSX.Element => {
             required
             placeholder="Enter your password"
           />
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          )}
 
           <SubmitButton text="Sign In" />
         </form>
