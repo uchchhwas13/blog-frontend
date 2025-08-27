@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/blog-logo.png';
 import { useAuth } from './auth/useAuth';
-import type { User } from './auth/AuthProvider';
+import type { UserAuthInfo } from './auth/authContext';
 import { logOut } from '../services/authService';
 
 type NavItemProps = { to: string; label: string };
@@ -28,7 +28,7 @@ function NavItem({ to, label }: NavItemProps) {
 
 type NavLinksProps = {
   isOpen: boolean;
-  user: User;
+  user: UserAuthInfo;
 };
 
 function NavLinks({ isOpen, user }: NavLinksProps) {
@@ -55,7 +55,7 @@ function NavLinks({ isOpen, user }: NavLinksProps) {
   );
 }
 
-type AuthButtonProps = { user: User; onLogout: () => void };
+type AuthButtonProps = { user: UserAuthInfo; onLogout: () => void };
 
 function AuthButtons({ user, onLogout }: AuthButtonProps) {
   if (user.isLoggedIn) {
@@ -97,7 +97,7 @@ export default function NavBar() {
   const handleLogout = () => {
     setIsOpen(false);
     clearAuthState();
-    logOut();
+    logOut(user.accessToken);
   };
 
   return (

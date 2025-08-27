@@ -25,3 +25,4 @@ export type SignInSuccessResponse = {
 };
 
 export type SignInResponse = ApiResponse<SignInSuccessResponse>;
+export type LogoutResponse = ApiResponse<void>;
