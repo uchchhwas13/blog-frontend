@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import type { SignUpFormDataType } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
+import { signupUser } from '../../services/authService';
 
 type FileUploadProps = {
   label: string;
@@ -45,6 +46,13 @@ export const SignUpPage = (): React.JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    signupUser(formData).then((response) => {
+      if (response.success) {
+        console.log('Sign up is successful');
+      } else {
+        console.log('Sign up is failed');
+      }
+    });
   };
 
   return (

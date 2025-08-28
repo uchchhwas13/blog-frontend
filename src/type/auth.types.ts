@@ -24,5 +24,6 @@ export type SignInSuccessResponse = {
   refreshToken: string;
 };
 
+export type SignUpResponse = ApiResponse<UserData>;
 export type SignInResponse = ApiResponse<SignInSuccessResponse>;
 export type LogoutResponse = ApiResponse<void>;
