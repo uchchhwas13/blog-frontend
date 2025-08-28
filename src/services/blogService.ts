@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { BlogDetailsResponse, BlogListResponse } from '../type/blog.types';
-import { extractErrorMessage } from '../utils/extractErrorMessage';
+import { extractError, extractMessage } from '../utils/extractErrorMessage';
 import { API_BASE } from './constants';
 
 export const fetchBlogList = async (): Promise<BlogListResponse> => {
@@ -10,8 +10,8 @@ export const fetchBlogList = async (): Promise<BlogListResponse> => {
   } catch (error) {
     return {
       success: false,
-      message: extractErrorMessage(error),
-      error: extractErrorMessage(error),
+      message: extractMessage(error),
+      error: extractError(error),
     };
   }
 };
@@ -27,8 +27,8 @@ export const fetchBlogDetails = async (
   } catch (error) {
     return {
       success: false,
-      message: extractErrorMessage(error),
-      error: extractErrorMessage(error),
+      message: extractMessage(error),
+      error: extractError(error),
     };
   }
 };

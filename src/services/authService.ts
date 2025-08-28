@@ -7,7 +7,7 @@ import type {
 } from '../type/auth.types';
 import { API_BASE } from './constants';
 import axios from 'axios';
-import { extractErrorMessage } from '../utils/extractErrorMessage';
+import { extractError, extractMessage } from '../utils/extractErrorMessage';
 
 export const signupUser = async (
   userInfo: SignUpFormDataType
@@ -26,8 +26,8 @@ export const signupUser = async (
   } catch (error) {
     return {
       success: false,
-      message: extractErrorMessage(error),
-      error: extractErrorMessage(error),
+      message: extractMessage(error),
+      error: extractError(error),
     };
   }
 };
@@ -44,8 +44,8 @@ export const signin = async (
   } catch (error) {
     return {
       success: false,
-      message: extractErrorMessage(error),
-      error: extractErrorMessage(error),
+      message: extractMessage(error),
+      error: extractError(error),
     };
   }
 };
