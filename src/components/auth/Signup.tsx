@@ -35,6 +35,7 @@ export const SignUpPage = (): React.JSX.Element => {
   };
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -52,6 +53,9 @@ export const SignUpPage = (): React.JSX.Element => {
         console.log('Sign up is successful');
         navigate('/signin', { state: { signupSuccess: true } });
       } else {
+        setErrorMessage(
+          response.message ?? 'Something went wrong, please try again'
+        );
         console.log('Sign up is failed');
       }
     });
@@ -99,6 +103,10 @@ export const SignUpPage = (): React.JSX.Element => {
             name="profileImage"
             onChange={handleChange}
           />
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          )}
 
           <SubmitButton text="Sign Up" />
         </form>
