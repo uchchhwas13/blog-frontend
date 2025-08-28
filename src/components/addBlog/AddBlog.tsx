@@ -9,7 +9,7 @@ export const AddBlogPage = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const navigate = useNavigate();
-
+  const [toastMessage, setToastMessage] = useState<string>('');
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setCoverImage(e.target.files[0]);
@@ -24,7 +24,8 @@ export const AddBlogPage = () => {
           if (response.data && response.error == null) {
             navigate(`/blogs/${response.data.blog.id}`);
           } else {
-            console.log('Failed to create post');
+            setToastMessage('Failed to create post. Please try again');
+            setTimeout(() => setToastMessage(''), 2000);
           }
         }
       );
@@ -103,6 +104,12 @@ export const AddBlogPage = () => {
             Publish Blog 🚀
           </button>
         </form>
+
+        {toastMessage && (
+          <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg">
+            {toastMessage}
+          </div>
+        )}
       </div>
     </div>
   );
