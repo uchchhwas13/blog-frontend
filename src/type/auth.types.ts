@@ -1,13 +1,13 @@
 import type { ApiResponse } from './type';
 
-export type SignUpFormDataType = {
+export type SignUpPayload = {
   fullname: string;
   email: string;
   password: string;
   profileImage: File | null;
 };
 
-export type SignInFormDataType = {
+export type SignInPayload = {
   email: string;
   password: string;
 };

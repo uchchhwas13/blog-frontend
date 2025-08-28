@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { SignUpFormDataType } from '../../type/auth.types';
+import type { SignUpPayload } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
 import { signupUser } from '../../services/authService';
@@ -27,7 +27,7 @@ const ImageFileUpload = ({ label, name, onChange }: FileUploadProps) => (
 );
 
 export const SignUpPage = (): React.JSX.Element => {
-  const initialFormData: SignUpFormDataType = {
+  const initialFormData: SignUpPayload = {
     fullname: '',
     email: '',
     password: '',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { SignInFormDataType } from '../../type/auth.types';
+import type { SignInPayload } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
 import { signin } from '../../services/authService';
@@ -10,7 +10,7 @@ import type { UserAuthInfo } from './authContext';
 import { useLocation } from 'react-router-dom';
 
 export const SignInPage = (): React.JSX.Element => {
-  const initialCredentials: SignInFormDataType = {
+  const initialCredentials: SignInPayload = {
     email: '',
     password: '',
   };

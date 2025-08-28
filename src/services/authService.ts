@@ -1,8 +1,8 @@
 import type {
   LogoutResponse,
-  SignInFormDataType,
+  SignInPayload,
   SignInResponse,
-  SignUpFormDataType,
+  SignUpPayload,
   SignUpResponse,
 } from '../type/auth.types';
 import { API_BASE } from './constants';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
 
 export const signupUser = async (
-  userInfo: SignUpFormDataType
+  userInfo: SignUpPayload
 ): Promise<SignUpResponse> => {
   try {
     const response = await axios.post<SignUpResponse>(
@@ -33,7 +33,7 @@ export const signupUser = async (
 };
 
 export const signin = async (
-  credentials: SignInFormDataType
+  credentials: SignInPayload
 ): Promise<SignInResponse> => {
   try {
     const response = await axios.post<SignInResponse>(
