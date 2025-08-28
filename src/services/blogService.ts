@@ -1,7 +1,9 @@
 import axios from 'axios';
 import type {
+  AddBlogPayload,
   BlogDetailsResponse,
   BlogListResponse,
+  CreateBlogResponse,
   PostedCommentResponse,
 } from '../type/blog.types';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
@@ -29,6 +31,33 @@ export const fetchBlogDetails = async (
     );
     return response.data;
   } catch (error) {
+    return {
+      success: false,
+      message: extractMessage(error),
+      error: extractError(error),
+    };
+  }
+};
+
+export const createBlog = async (
+  payload: AddBlogPayload,
+  accessToken: string
+): Promise<CreateBlogResponse> => {
+  console.log('payload', payload);
+  try {
+    const response = await axios.post<CreateBlogResponse>(
+      `${API_BASE}/blogs`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('message', extractMessage(error), 'error', extractError(error));
     return {
       success: false,
       message: extractMessage(error),

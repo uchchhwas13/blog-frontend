@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { createBlog } from '../../services/blogService';
+import { useAuth } from '../auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const AddBlogPage = () => {
+  const { user } = useAuth();
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const navigate = useNavigate();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -13,6 +18,17 @@ export const AddBlogPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (coverImage && title && body) {
+      createBlog({ coverImage, title, body }, user.accessToken).then(
+        (response) => {
+          if (response.data && response.error == null) {
+            navigate(`/blogs/${response.data.blog.id}`);
+          } else {
+            console.log('Failed to create post');
+          }
+        }
+      );
+    }
   };
 
   return (

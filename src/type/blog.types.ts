@@ -46,3 +46,25 @@ type CommentResponse = {
   comment: Comment;
 };
 export type PostedCommentResponse = ApiResponse<CommentResponse>;
+
+export type AddBlogPayload = {
+  title: string;
+  body: string;
+  coverImage: File;
+};
+
+export type AddBlogResponse = {
+  blog: {
+    id: string;
+    title: string;
+    body: string;
+    coverImageUrl: string;
+    createdAt: string;
+    createdBy: {
+      name: string;
+      id: string;
+    };
+  };
+};
+
+export type CreateBlogResponse = ApiResponse<AddBlogResponse>;
