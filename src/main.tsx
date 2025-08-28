@@ -8,11 +8,12 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Layout from './components/Layout.tsx';
-import Home from './components/Home/Home.tsx';
-import BlogDetails from './components/BlogDetails/BlogDetails.tsx';
+import Home from './components/home/Home.tsx';
+import BlogDetails from './components/blogDetails/BlogDetails.tsx';
 import { SignUpPage } from './components/auth/Signup.tsx';
 import { SignInPage } from './components/auth/Signin.tsx';
 import { AuthProvider } from './components/auth/AuthProvider.tsx';
+import { AddBlogPage } from './components/addBlog/AddBlog.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="blogs/:id" element={<BlogDetails />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="signup" element={<SignUpPage />} />
+      <Route path="/add-blog" element={<AddBlogPage />} />
     </Route>
   )
 );
