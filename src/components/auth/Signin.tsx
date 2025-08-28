@@ -7,6 +7,7 @@ import { signin } from '../../services/authService';
 import { useAuth } from './useAuth';
 import type { SignInSuccessResponse } from '../../type/auth.types';
 import type { UserAuthInfo } from './authContext';
+import { useLocation } from 'react-router-dom';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInFormDataType = {
@@ -17,6 +18,8 @@ export const SignInPage = (): React.JSX.Element => {
   const [errorMessage, setErrorMessage] = useState('');
   const { setUserInfo } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const signupSuccess = location.state?.signupSuccess;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -52,6 +55,11 @@ export const SignInPage = (): React.JSX.Element => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        {signupSuccess && (
+          <div className="bg-green-100 text-green-800 p-2 mb-4 rounded">
+            🎉 Account created successfully! Please sign in.
+          </div>
+        )}
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Sign In
         </h1>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { SignUpFormDataType } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
@@ -34,6 +34,7 @@ export const SignUpPage = (): React.JSX.Element => {
     profileImage: null,
   };
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -49,6 +50,7 @@ export const SignUpPage = (): React.JSX.Element => {
     signupUser(formData).then((response) => {
       if (response.success) {
         console.log('Sign up is successful');
+        navigate('/signin', { state: { signupSuccess: true } });
       } else {
         console.log('Sign up is failed');
       }
