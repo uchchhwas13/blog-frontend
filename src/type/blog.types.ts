@@ -37,7 +37,12 @@ export type BlogContent = {
 
 export type BlogDetailsModel = {
   blog: BlogContent;
-  comments: [Comment];
+  comments: Comment[];
 };
 
 export type BlogDetailsResponse = ApiResponse<BlogDetailsModel>;
+
+type CommentResponse = {
+  comment: Comment;
+};
+export type PostedCommentResponse = ApiResponse<CommentResponse>;
