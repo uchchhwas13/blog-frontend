@@ -44,7 +44,10 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = sessionStorage.getItem('refreshToken') ?? '';
+        const refreshToken = sessionStorage.getItem('refreshToken');
+        if (!refreshToken) {
+          throw Error('Refresh token not available');
+        }
         const response = await refreshAccessToken(refreshToken);
         authState.accessToken = response.accessToken;
         return axiosInstance(originalRequest);
