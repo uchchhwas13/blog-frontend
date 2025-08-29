@@ -14,6 +14,7 @@ import { SignUpPage } from './components/auth/Signup.tsx';
 import { SignInPage } from './components/auth/Signin.tsx';
 import { AuthProvider } from './components/auth/AuthProvider.tsx';
 import { AddBlogPage } from './components/addBlog/AddBlog.tsx';
+import { ProtectedRoute } from './ProtectedRoute.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +25,11 @@ const router = createBrowserRouter(
       <Route path="blogs/:id" element={<BlogDetails />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="signup" element={<SignUpPage />} />
-      <Route path="/add-blog" element={<AddBlogPage />} />
+
+      {/* Protected section */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="add-blog" element={<AddBlogPage />} />
+      </Route>
     </Route>
   )
 );
