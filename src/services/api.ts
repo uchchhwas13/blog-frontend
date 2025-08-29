@@ -12,7 +12,6 @@ let authState: UserAuthInfo = {
   fullName: '',
   isLoggedIn: false,
   accessToken: '',
-  refreshToken: '',
   userId: '',
 };
 
@@ -46,10 +45,8 @@ axiosInstance.interceptors.response.use(
 
       try {
         const refreshToken = sessionStorage.getItem('refreshToken') ?? '';
-        console.log('Refresh token', refreshToken);
         const response = await refreshAccessToken(refreshToken);
         authState.accessToken = response.accessToken;
-        authState.refreshToken = response.refreshToken;
         return axiosInstance(originalRequest);
       } catch (err) {
         // Refresh failed → logout here

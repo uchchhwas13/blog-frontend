@@ -4,7 +4,6 @@ export type UserAuthInfo = {
   fullName: string;
   isLoggedIn: boolean;
   accessToken: string;
-  refreshToken: string;
   userId: string;
 };
 
