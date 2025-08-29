@@ -8,6 +8,7 @@ import type {
 } from '../type/blog.types';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
 import { API_BASE } from './constants';
+import { axiosInstance } from './api';
 
 export const fetchBlogList = async (): Promise<BlogListResponse> => {
   try {
@@ -45,7 +46,7 @@ export const createBlog = async (
 ): Promise<CreateBlogResponse> => {
   console.log('payload', payload);
   try {
-    const response = await axios.post<CreateBlogResponse>(
+    const response = await axiosInstance.post<CreateBlogResponse>(
       `${API_BASE}/blogs`,
       payload,
       {
@@ -72,7 +73,7 @@ export const createComment = async (
   accessToken: string
 ): Promise<PostedCommentResponse> => {
   try {
-    const response = await axios.post<PostedCommentResponse>(
+    const response = await axiosInstance.post<PostedCommentResponse>(
       `${API_BASE}/blogs/${blogId}/comments`,
       { content },
       {
