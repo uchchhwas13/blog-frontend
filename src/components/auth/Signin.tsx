@@ -8,6 +8,7 @@ import { useAuth } from './useAuth';
 import type { SignInSuccessResponse } from '../../type/auth.types';
 import type { UserAuthInfo } from './authContext';
 import { useLocation } from 'react-router-dom';
+import { setAxiosAuthState } from '../../services/api';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInPayload = {
@@ -36,6 +37,8 @@ export const SignInPage = (): React.JSX.Element => {
       setCredentials(initialCredentials);
       const userInfo = createUserAuthInfoFromResponse(response.data);
       setUserInfo(userInfo);
+      sessionStorage.setItem('refreshToken', userInfo.refreshToken);
+      setAxiosAuthState(userInfo);
       navigate('/');
     }
   };

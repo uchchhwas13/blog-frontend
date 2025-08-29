@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import type { UserAuthInfo } from '../components/auth/authContext';
+import { refreshAccessToken } from './refreshApi';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',
@@ -18,6 +19,7 @@ let authState: UserAuthInfo = {
 // Function to update authState whenever it changes in context
 export const setAxiosAuthState = (user: UserAuthInfo) => {
   authState = user;
+  console.log('AuthState', authState);
 };
 
 export interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {
@@ -43,7 +45,11 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await axiosInstance.post('/user/refresh-access-token');
+        const refreshToken = sessionStorage.getItem('refreshToken') ?? '';
+        console.log('Refresh token', refreshToken);
+        const response = await refreshAccessToken(refreshToken);
+        authState.accessToken = response.accessToken;
+        authState.refreshToken = response.refreshToken;
         return axiosInstance(originalRequest);
       } catch (err) {
         // Refresh failed → logout here
