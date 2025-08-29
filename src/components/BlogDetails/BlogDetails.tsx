@@ -5,12 +5,10 @@ import type { BlogDetailsModel } from '../../type/blog.types';
 import { BlogHeader } from './BlogHeader';
 import { BlogBody } from './BlogBody';
 import { CommentSection } from './CommentSection';
-import { useAuth } from '../auth/useAuth';
 
 const BlogDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [model, setModel] = useState<BlogDetailsModel>();
-  const { user } = useAuth();
   const [toastMessage, setToastMessage] = useState<string>('');
 
   useEffect(() => {
@@ -31,7 +29,7 @@ const BlogDetails = () => {
   const handleAddComment = async (content: string) => {
     if (!id) return;
 
-    createComment(id, content, user.accessToken).then((response) => {
+    createComment(id, content).then((response) => {
       if (response.data?.comment != null) {
         const newComment = response.data?.comment;
         setModel((prev) =>

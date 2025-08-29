@@ -41,20 +41,13 @@ export const fetchBlogDetails = async (
 };
 
 export const createBlog = async (
-  payload: AddBlogPayload,
-  accessToken: string
+  payload: AddBlogPayload
 ): Promise<CreateBlogResponse> => {
   console.log('payload', payload);
   try {
     const response = await axiosInstance.post<CreateBlogResponse>(
       `${API_BASE}/blogs`,
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
+      payload
     );
     return response.data;
   } catch (error) {
@@ -69,18 +62,12 @@ export const createBlog = async (
 
 export const createComment = async (
   blogId: string,
-  content: string,
-  accessToken: string
+  content: string
 ): Promise<PostedCommentResponse> => {
   try {
     const response = await axiosInstance.post<PostedCommentResponse>(
       `${API_BASE}/blogs/${blogId}/comments`,
-      { content },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      { content }
     );
     return response.data;
   } catch (error) {
