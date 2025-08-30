@@ -43,7 +43,6 @@ export const fetchBlogDetails = async (
 export const createBlog = async (
   payload: AddBlogPayload
 ): Promise<CreateBlogResponse> => {
-  console.log('payload', payload);
   try {
     const response = await axiosInstance.post<CreateBlogResponse>(
       `${API_BASE}/blogs`,
@@ -51,7 +50,6 @@ export const createBlog = async (
     );
     return response.data;
   } catch (error) {
-    console.log('message', extractMessage(error), 'error', extractError(error));
     return {
       success: false,
       message: extractMessage(error),

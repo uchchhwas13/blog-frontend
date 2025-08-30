@@ -19,7 +19,6 @@ let authState: UserAuthInfo = {
 // Function to update authState whenever it changes in context
 export const setAxiosAuthState = (user: UserAuthInfo) => {
   authState = user;
-  console.log('AuthState', authState);
 };
 
 export interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {

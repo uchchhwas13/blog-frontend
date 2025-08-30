@@ -12,7 +12,6 @@ const refreshAxios = axios.create({
 export const refreshAccessToken = async (
   refreshToken: string
 ): Promise<RefreshTokenSuccessResponse> => {
-  console.log('RefreshToken: ', refreshToken);
   const response = await refreshAxios.post<RefreshTokenResponse>(
     '/user/refresh-access-token',
     {
