@@ -51,18 +51,9 @@ export const signin = async (
   }
 };
 
-export const logOut = async (accessToken: string): Promise<boolean> => {
+export const logOut = async (): Promise<boolean> => {
   try {
-    const response = await axiosInstance.post<LogoutResponse>(
-      `${API_BASE}/user/logout`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    console.log(response.data);
+    await axiosInstance.post<LogoutResponse>(`${API_BASE}/user/logout`);
     return true;
   } catch {
     return false;
