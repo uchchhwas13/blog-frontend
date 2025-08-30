@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import type { UserAuthInfo } from '../components/auth/authContext';
 import { refreshAccessToken } from './refreshApi';
+import { logout } from './logoutService';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',
@@ -52,7 +53,7 @@ axiosInstance.interceptors.response.use(
         authState.accessToken = response.accessToken;
         return axiosInstance(originalRequest);
       } catch (err) {
-        // Refresh failed → logout here
+        logout();
         return Promise.reject(err);
       }
     }
