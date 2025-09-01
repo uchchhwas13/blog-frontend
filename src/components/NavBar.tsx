@@ -97,7 +97,7 @@ export default function NavBar() {
   const handleLogout = () => {
     setIsOpen(false);
     clearAuthState();
-    logOut(user.accessToken);
+    logOut();
   };
 
   return (
