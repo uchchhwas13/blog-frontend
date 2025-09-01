@@ -5,6 +5,7 @@ import type { UserInfo } from './authContext';
 import { refreshAccessToken } from '../../services/refreshApi';
 import { updateAccessToken } from '../../services/api';
 import { STORAGE_KEYS } from '../constants/storageKeys';
+import { clearAuthStorage } from '../utils/storage';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserInfo: UserInfo = {
@@ -29,15 +30,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (userInfo.isLoggedIn) {
       localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
     } else {
-      localStorage.removeItem(STORAGE_KEYS.USER_INFO);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      clearAuthStorage();
     }
   };
 
   const clearAuthState = () => {
     setUser(initialUserInfo);
-    localStorage.removeItem(STORAGE_KEYS.USER_INFO);
-    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+    clearAuthStorage();
   };
 
   useEffect(() => {
