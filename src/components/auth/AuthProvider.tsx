@@ -43,13 +43,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log(' useEffect called');
     const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
-      initAuth(refreshToken);
+      handleTokenRefresh(refreshToken);
     } else {
       clearAuthState();
     }
   }, []);
 
-  function initAuth(refreshToken: string) {
+  function handleTokenRefresh(refreshToken: string) {
     refreshAccessToken(refreshToken)
       .then((res) => {
         localStorage.setItem(res.refreshToken, 'refreshToken');
