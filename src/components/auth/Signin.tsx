@@ -6,7 +6,7 @@ import { SubmitButton } from './SubmitButton';
 import { signin } from '../../services/authService';
 import { useAuth } from './useAuth';
 import type { SignInSuccessResponse } from '../../type/auth.types';
-import type { UserAuthInfo } from './authContext';
+import type { UserInfo } from './authContext';
 import { useLocation } from 'react-router-dom';
 import { setAxiosAuthState } from '../../services/api';
 
@@ -35,23 +35,24 @@ export const SignInPage = (): React.JSX.Element => {
       setErrorMessage('Incorrect email or password');
     } else {
       setCredentials(initialCredentials);
-      const userInfo = createUserAuthInfoFromResponse(response.data);
+      const userInfo = createUserInfoFromResponse(response.data);
       setUserInfo(userInfo);
       localStorage.setItem('refreshToken', response.data.refreshToken);
-      setAxiosAuthState(userInfo);
+      setAxiosAuthState({
+        accessToken: response.data.accessToken,
+        userId: response.data.user.id,
+      });
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       navigate('/');
     }
   };
 
-  const createUserAuthInfoFromResponse = (
+  const createUserInfoFromResponse = (
     response: SignInSuccessResponse
-  ): UserAuthInfo => {
+  ): UserInfo => {
     return {
       fullName: response.user.name,
       isLoggedIn: true,
-      accessToken: response.accessToken,
-      userId: response.user.id,
     };
   };
 

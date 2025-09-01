@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
-import type { UserAuthInfo } from '../components/auth/authContext';
 import { refreshAccessToken } from './refreshApi';
 import { logout } from './logoutService';
 
@@ -9,9 +8,12 @@ export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+export type UserAuthInfo = {
+  accessToken: string;
+  userId: string;
+};
+
 let authState: UserAuthInfo = {
-  fullName: '',
-  isLoggedIn: false,
   accessToken: '',
   userId: '',
 };
@@ -19,6 +21,10 @@ let authState: UserAuthInfo = {
 // Function to update authState whenever it changes in context
 export const setAxiosAuthState = (user: UserAuthInfo) => {
   authState = user;
+};
+
+export const updateAccessToken = (accessToken: string) => {
+  authState.accessToken = accessToken;
 };
 
 export interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {

@@ -1,33 +1,31 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AuthContext } from './authContext';
-import type { UserAuthInfo } from './authContext';
+import type { UserInfo } from './authContext';
 import { refreshAccessToken } from '../../services/refreshApi';
-import { setAxiosAuthState } from '../../services/api';
+import { updateAccessToken } from '../../services/api';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const initialUserAuthInfo: UserAuthInfo = {
+  const initialUserInfo: UserInfo = {
     fullName: '',
     isLoggedIn: false,
-    accessToken: '',
-    userId: '',
   };
-  const [user, setUser] = useState<UserAuthInfo>(initialUserAuthInfo);
+  const [user, setUser] = useState<UserInfo>(initialUserInfo);
 
-  const setUserInfo = (userInfo: UserAuthInfo) => {
+  const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
-    setAxiosAuthState(userInfo);
     console.log('setUserInfo called', userInfo);
     if (userInfo.isLoggedIn) {
       console.log('Saving userinfo', userInfo);
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
     } else {
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('refreshToken');
     }
   };
 
   const clearAuthState = () => {
-    setUser(initialUserAuthInfo);
+    setUser(initialUserInfo);
     localStorage.removeItem('userInfo');
     localStorage.removeItem('refreshToken');
   };
@@ -37,29 +35,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedUser = localStorage.getItem('userInfo');
     const refreshToken = localStorage.getItem('refreshToken');
     console.log('storedUser', storedUser, 'refreshToken', refreshToken);
-    let parsed: UserAuthInfo;
+    let parsed: UserInfo;
     if (storedUser && refreshToken) {
       try {
-        parsed = JSON.parse(storedUser) as UserAuthInfo;
-        initAuth(parsed, refreshToken);
+        parsed = JSON.parse(storedUser) as UserInfo;
+        setUser(parsed);
+        initAuth(refreshToken);
       } catch {
         clearAuthState();
-        return;
       }
     }
   }, []);
 
-  function initAuth(parsed: UserAuthInfo, refreshToken: string) {
-    console.log('initAuth called', parsed, 'refreshToken: ', refreshToken);
+  function initAuth(refreshToken: string) {
     refreshAccessToken(refreshToken)
       .then((res) => {
-        const updated: UserAuthInfo = {
-          ...parsed,
-          accessToken: res.accessToken,
-          isLoggedIn: true,
-        };
         localStorage.setItem(res.refreshToken, 'refreshToken');
-        setUserInfo(updated);
+        updateAccessToken(res.accessToken);
       })
       .catch((error) => {
         console.log('Error: ', error);

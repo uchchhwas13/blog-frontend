@@ -1,15 +1,13 @@
 import { createContext } from 'react';
 
-export type UserAuthInfo = {
+export type UserInfo = {
   fullName: string;
   isLoggedIn: boolean;
-  accessToken: string;
-  userId: string;
 };
 
 export type AuthContextType = {
-  user: UserAuthInfo;
-  setUserInfo: (userInfo: UserAuthInfo) => void;
+  user: UserInfo;
+  setUserInfo: (userInfo: UserInfo) => void;
   clearAuthState: () => void;
 };
 
