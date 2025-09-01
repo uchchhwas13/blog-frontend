@@ -10,7 +10,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     fullName: '',
     isLoggedIn: false,
   };
-  const [user, setUser] = useState<UserInfo>(initialUserInfo);
+  const getStoredUserInfo = (): UserInfo => {
+    try {
+      const stored = localStorage.getItem('userInfo');
+      if (stored) {
+        return JSON.parse(stored) as UserInfo;
+      }
+    } catch (err) {
+      console.error('Failed to parse userInfo from localStorage', err);
+    }
+    return initialUserInfo;
+  };
+  const [user, setUser] = useState<UserInfo>(getStoredUserInfo());
 
   const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
@@ -32,18 +43,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     console.log(' useEffect called');
-    const storedUser = localStorage.getItem('userInfo');
     const refreshToken = localStorage.getItem('refreshToken');
-    console.log('storedUser', storedUser, 'refreshToken', refreshToken);
-    let parsed: UserInfo;
-    if (storedUser && refreshToken) {
-      try {
-        parsed = JSON.parse(storedUser) as UserInfo;
-        setUser(parsed);
-        initAuth(refreshToken);
-      } catch {
-        clearAuthState();
-      }
+    if (refreshToken) {
+      initAuth(refreshToken);
+    } else {
+      clearAuthState();
     }
   }, []);
 
