@@ -50,7 +50,6 @@ export const SignUpPage = (): React.JSX.Element => {
     e.preventDefault();
     signupUser(formData).then((response) => {
       if (response.success) {
-        console.log('Sign up is successful');
         navigate('/signin', { state: { signupSuccess: true } });
       } else {
         setErrorMessage(

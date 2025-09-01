@@ -25,9 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
-    console.log('setUserInfo called', userInfo);
     if (userInfo.isLoggedIn) {
-      console.log('Saving userinfo', userInfo);
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
     } else {
       localStorage.removeItem('userInfo');
