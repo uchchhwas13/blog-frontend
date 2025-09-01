@@ -46,7 +46,12 @@ export const createBlog = async (
   try {
     const response = await axiosInstance.post<CreateBlogResponse>(
       `${API_BASE}/blogs`,
-      payload
+      payload,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
     return response.data;
   } catch (error) {
