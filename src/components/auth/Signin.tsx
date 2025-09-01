@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { SignInPayload } from '../../type/auth.types';
+import type { SignInPayload, SignInResponse } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
-import { signin } from '../../services/authService';
+import { signinUser } from '../../services/authService';
 import { useAuth } from './useAuth';
 import type { SignInSuccessResponse } from '../../type/auth.types';
 import type { UserInfo } from './authContext';
@@ -29,31 +29,54 @@ export const SignInPage = (): React.JSX.Element => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMessage('');
-    const response = await signin(credentials);
-    if (!response.success || !response.data || response.error) {
-      setErrorMessage('Incorrect email or password');
-    } else {
-      setCredentials(initialCredentials);
-      const userInfo = createUserInfoFromResponse(response.data);
-      setUserInfo(userInfo);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
-      setAxiosAuthState({
-        accessToken: response.data.accessToken,
-        userId: response.data.user.id,
-      });
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
-      navigate('/');
-    }
+    clearError();
+    await processSignin();
   };
 
-  const createUserInfoFromResponse = (
-    response: SignInSuccessResponse
-  ): UserInfo => {
-    return {
-      fullName: response.user.name,
+  const clearError = () => {
+    setErrorMessage('');
+  };
+
+  const processSignin = async () => {
+    const response = await signinUser(credentials);
+
+    if (!response.success || !response.data || response.error) {
+      showSigninError();
+      return;
+    }
+    handleSuccessfulSignin(response.data);
+  };
+
+  const showSigninError = () => {
+    setErrorMessage('Incorrect email or password');
+  };
+
+  const handleSuccessfulSignin = async (data: SignInSuccessResponse) => {
+    resetCredentials();
+    const userInfo = {
+      fullName: data.user.name,
       isLoggedIn: true,
     };
+    saveUserInfo(userInfo, data);
+    navigateToHome();
+  };
+
+  const resetCredentials = () => {
+    setCredentials(initialCredentials);
+  };
+
+  const saveUserInfo = (userInfo: UserInfo, data: SignInSuccessResponse) => {
+    setUserInfo(userInfo);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    localStorage.setItem('refreshToken', data.refreshToken);
+    setAxiosAuthState({
+      accessToken: data.accessToken,
+      userId: data.user.id,
+    });
+  };
+
+  const navigateToHome = () => {
+    navigate('/');
   };
 
   return (

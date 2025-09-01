@@ -33,7 +33,7 @@ export const signupUser = async (
   }
 };
 
-export const signin = async (
+export const signinUser = async (
   credentials: SignInPayload
 ): Promise<SignInResponse> => {
   try {
