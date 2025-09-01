@@ -9,6 +9,7 @@ import type { SignInSuccessResponse } from '../../type/auth.types';
 import type { UserInfo } from './authContext';
 import { useLocation } from 'react-router-dom';
 import { setAxiosAuthState } from '../../services/api';
+import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInPayload = {
@@ -67,8 +68,8 @@ export const SignInPage = (): React.JSX.Element => {
 
   const saveUserInfo = (userInfo: UserInfo, data: SignInSuccessResponse) => {
     setUserInfo(userInfo);
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-    localStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
+    localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, data.refreshToken);
     setAxiosAuthState({
       accessToken: data.accessToken,
       userId: data.user.id,

@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { refreshAccessToken } from './refreshApi';
 import { logout } from './logoutService';
+import { STORAGE_KEYS } from '../components/constants/storageKeys';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',
@@ -50,7 +51,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refreshToken');
+        const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
         if (!refreshToken) {
           throw Error('Refresh token not available');
         }

@@ -4,6 +4,7 @@ import { AuthContext } from './authContext';
 import type { UserInfo } from './authContext';
 import { refreshAccessToken } from '../../services/refreshApi';
 import { updateAccessToken } from '../../services/api';
+import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserInfo: UserInfo = {
@@ -12,7 +13,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
   const getStoredUserInfo = (): UserInfo => {
     try {
-      const stored = localStorage.getItem('userInfo');
+      const stored = localStorage.getItem(STORAGE_KEYS.USER_INFO);
       if (stored) {
         return JSON.parse(stored) as UserInfo;
       }
@@ -26,22 +27,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
     if (userInfo.isLoggedIn) {
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
     } else {
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('refreshToken');
+      localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
     }
   };
 
   const clearAuthState = () => {
     setUser(initialUserInfo);
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
   };
 
   useEffect(() => {
     console.log(' useEffect called');
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
     if (refreshToken) {
       refreshAuthTokens(refreshToken);
     } else {
@@ -52,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function refreshAuthTokens(refreshToken: string) {
     refreshAccessToken(refreshToken)
       .then((res) => {
-        localStorage.setItem(res.refreshToken, 'refreshToken');
+        localStorage.setItem(res.refreshToken, STORAGE_KEYS.REFRESH_TOKEN);
         updateAccessToken(res.accessToken);
       })
       .catch((error) => {
