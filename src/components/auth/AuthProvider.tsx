@@ -4,8 +4,13 @@ import { AuthContext } from './authContext';
 import type { UserInfo } from './authContext';
 import { refreshAccessToken } from '../../services/refreshApi';
 import { updateAccessToken } from '../../services/api';
-import { STORAGE_KEYS } from '../constants/storageKeys';
-import { clearAuthStorage } from '../utils/storage';
+import {
+  clearAuthStorage,
+  retrieveRefreshToken,
+  retrieveUserInfo,
+  saveRefreshToken,
+  saveUserInfoInLocalStorage,
+} from '../utils/storage';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserInfo: UserInfo = {
@@ -14,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
   const getStoredUserInfo = (): UserInfo => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEYS.USER_INFO);
+      const stored = retrieveUserInfo();
       if (stored) {
         return JSON.parse(stored) as UserInfo;
       }
@@ -28,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
     if (userInfo.isLoggedIn) {
-      localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
+      saveUserInfoInLocalStorage(userInfo);
     } else {
       clearAuthStorage();
     }
@@ -41,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     console.log(' useEffect called');
-    const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+    const refreshToken = retrieveRefreshToken();
     if (refreshToken) {
       refreshAuthTokens(refreshToken);
     } else {
@@ -52,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function refreshAuthTokens(refreshToken: string) {
     refreshAccessToken(refreshToken)
       .then((res) => {
-        localStorage.setItem(res.refreshToken, STORAGE_KEYS.REFRESH_TOKEN);
+        saveRefreshToken(res.refreshToken);
         updateAccessToken(res.accessToken);
       })
       .catch((error) => {

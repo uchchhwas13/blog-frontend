@@ -1,10 +1,9 @@
 // services/authService.ts
-import { STORAGE_KEYS } from '../components/constants/storageKeys';
+import { clearAuthStorage } from '../components/utils/storage';
 import { setAxiosAuthState } from './api';
 
 export const logout = () => {
-  // Clear tokens
-  localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+  clearAuthStorage();
 
   // Reset auth state in axios
   setAxiosAuthState({

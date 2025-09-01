@@ -4,7 +4,7 @@ import type {
   RefreshTokenSuccessResponse,
   RefreshTokenResponse,
 } from '../type/auth.types';
-import { STORAGE_KEYS } from '../components/constants/storageKeys';
+import { saveRefreshToken } from '../components/utils/storage';
 
 const refreshAxios = axios.create({
   baseURL: 'http://localhost:3000',
@@ -21,7 +21,7 @@ export const refreshAccessToken = async (
   );
   if (response.data.data) {
     const data = response.data.data;
-    localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, data.refreshToken);
+    saveRefreshToken(data.refreshToken);
     return {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
