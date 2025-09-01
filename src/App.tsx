@@ -14,6 +14,7 @@ import { AuthProvider } from './components/auth/AuthProvider.tsx';
 import { AddBlogPage } from './components/addBlog/AddBlog.tsx';
 import { ProtectedRoute } from './ProtectedRoute.tsx';
 import { AboutPage } from './components/About.tsx';
+import { ContactPage } from './components/Contact.tsx';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,7 +22,7 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route path="" element={<Home />} />
         <Route path="about" element={<AboutPage />} />
-        <Route path="contact" element={<h1>Contact Page</h1>} />
+        <Route path="contact" element={<ContactPage />} />
         <Route path="blogs/:id" element={<BlogDetails />} />
         <Route path="signin" element={<SignInPage />} />
         <Route path="signup" element={<SignUpPage />} />
