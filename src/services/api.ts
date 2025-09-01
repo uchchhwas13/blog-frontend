@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { refreshAccessToken } from './refreshApi';
 import { logout } from './logoutService';
-import { retrieveRefreshToken } from '../components/utils/storage';
+import { retrieveRefreshToken } from '../utils/storage';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',

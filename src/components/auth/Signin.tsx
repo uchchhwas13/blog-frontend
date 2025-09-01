@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { SignInPayload, SignInResponse } from '../../type/auth.types';
+import type { SignInPayload } from '../../type/auth.types';
 import { InputField } from './Inputfield';
 import { SubmitButton } from './SubmitButton';
 import { signinUser } from '../../services/authService';
@@ -9,7 +9,10 @@ import type { SignInSuccessResponse } from '../../type/auth.types';
 import type { UserInfo } from './authContext';
 import { useLocation } from 'react-router-dom';
 import { setAxiosAuthState } from '../../services/api';
-import { saveRefreshToken, saveUserInfoInLocalStorage } from '../utils/storage';
+import {
+  saveRefreshToken,
+  saveUserInfoInLocalStorage,
+} from '../../utils/storage';
 
 export const SignInPage = (): React.JSX.Element => {
   const initialCredentials: SignInPayload = {

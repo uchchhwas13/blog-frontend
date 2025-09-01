@@ -1,5 +1,5 @@
-import type { UserInfo } from '../auth/authContext';
-import { STORAGE_KEYS } from '../constants/storageKeys';
+import type { UserInfo } from '../components/auth/authContext';
+import { STORAGE_KEYS } from '../components/constants/storageKeys';
 
 export const clearAuthStorage = () => {
   localStorage.removeItem(STORAGE_KEYS.USER_INFO);
@@ -15,9 +15,9 @@ export const retrieveUserInfo = (): string | null => {
 };
 
 export const saveRefreshToken = (refreshToken: string) => {
-  localStorage.setItem(refreshToken, STORAGE_KEYS.REFRESH_TOKEN);
+  localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
 };
 
 export const saveUserInfoInLocalStorage = (userInfo: UserInfo) => {
-  localStorage.setItem(JSON.stringify(userInfo), STORAGE_KEYS.USER_INFO);
+  localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
 };

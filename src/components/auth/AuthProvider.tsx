@@ -10,7 +10,7 @@ import {
   retrieveUserInfo,
   saveRefreshToken,
   saveUserInfoInLocalStorage,
-} from '../utils/storage';
+} from '../../utils/storage';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserInfo: UserInfo = {
@@ -19,9 +19,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
   const getStoredUserInfo = (): UserInfo => {
     try {
-      const stored = retrieveUserInfo();
-      if (stored) {
-        return JSON.parse(stored) as UserInfo;
+      const storedUserInfo = retrieveUserInfo();
+      if (storedUserInfo) {
+        return JSON.parse(storedUserInfo) as UserInfo;
       }
     } catch (err) {
       console.error('Failed to parse userInfo from localStorage', err);

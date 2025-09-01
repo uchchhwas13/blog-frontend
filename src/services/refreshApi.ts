@@ -4,7 +4,7 @@ import type {
   RefreshTokenSuccessResponse,
   RefreshTokenResponse,
 } from '../type/auth.types';
-import { saveRefreshToken } from '../components/utils/storage';
+import { saveRefreshToken } from '../utils/storage';
 
 const refreshAxios = axios.create({
   baseURL: 'http://localhost:3000',

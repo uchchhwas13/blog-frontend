@@ -1,5 +1,5 @@
 // services/authService.ts
-import { clearAuthStorage } from '../components/utils/storage';
+import { clearAuthStorage } from '../utils/storage';
 import { setAxiosAuthState } from './api';
 
 export const logout = () => {
