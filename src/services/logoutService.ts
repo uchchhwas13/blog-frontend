@@ -3,7 +3,7 @@ import { setAxiosAuthState } from './api';
 
 export const logout = () => {
   // Clear tokens
-  sessionStorage.removeItem('refreshToken');
+  localStorage.removeItem('refreshToken');
 
   // Reset auth state in axios
   setAxiosAuthState({

@@ -20,7 +20,7 @@ export const refreshAccessToken = async (
   );
   if (response.data.data) {
     const data = response.data.data;
-    sessionStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     return {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,

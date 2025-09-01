@@ -37,8 +37,9 @@ export const SignInPage = (): React.JSX.Element => {
       setCredentials(initialCredentials);
       const userInfo = createUserAuthInfoFromResponse(response.data);
       setUserInfo(userInfo);
-      sessionStorage.setItem('refreshToken', response.data.refreshToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
       setAxiosAuthState(userInfo);
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
       navigate('/');
     }
   };
