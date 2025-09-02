@@ -1,5 +1,5 @@
 import type { UserInfo } from '../components/auth/authContext';
-import { STORAGE_KEYS } from '../components/constants/storageKeys';
+import { STORAGE_KEYS } from '../constants/storageKeys';
 
 export const clearAuthStorage = () => {
   localStorage.removeItem(STORAGE_KEYS.USER_INFO);
