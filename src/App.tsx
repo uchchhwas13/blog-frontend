@@ -1,40 +1,9 @@
 import './index.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  createRoutesFromElements,
-} from 'react-router-dom';
-import Layout from './components/Layout.tsx';
-import Home from './components/home/Home.tsx';
-import BlogDetails from './components/blogDetails/BlogDetails.tsx';
-import { SignUpPage } from './components/auth/Signup.tsx';
-import { SignInPage } from './components/auth/Signin.tsx';
+import { RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './components/auth/AuthProvider.tsx';
-import { AddBlogPage } from './components/addBlog/AddBlog.tsx';
-import { ProtectedRoute } from './ProtectedRoute.tsx';
-import { AboutPage } from './components/About.tsx';
-import { ContactPage } from './components/Contact.tsx';
+import { router } from './components/router/Routes.tsx';
 
 const App = () => {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route path="" element={<Home />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="blogs/:id" element={<BlogDetails />} />
-        <Route path="signin" element={<SignInPage />} />
-        <Route path="signup" element={<SignUpPage />} />
-
-        {/* Protected section */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="add-blog" element={<AddBlogPage />} />
-        </Route>
-      </Route>
-    )
-  );
-
   return (
     <AuthProvider>
       <RouterProvider router={router} />
