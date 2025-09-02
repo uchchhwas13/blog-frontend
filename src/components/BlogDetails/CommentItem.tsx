@@ -1,22 +1,32 @@
 import type { Comment } from '../../type/blog.types';
+
 type CommentItemProps = {
   comment: Comment;
 };
 
 export const CommentItem = ({ comment }: CommentItemProps) => {
   return (
-    <div
-      key={comment.id}
-      className="flex gap-3 mb-6 pb-4 border-b border-gray-200 last:border-none"
-    >
+    <div className="flex gap-4">
+      {/* Avatar */}
       <img
         src={comment.createdBy.imageUrl}
         alt={comment.createdBy.name}
-        className="w-10 h-10 rounded-full object-cover"
+        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
       />
-      <div className="flex flex-col">
-        <p className="font-semibold text-gray-700">{comment.createdBy.name}</p>
-        <p className="text-gray-600">{comment.content}</p>
+
+      {/* Comment bubble */}
+      <div className="flex-1 bg-gray-50 rounded-xl px-4 py-3 shadow-sm">
+        <div className="flex items-center justify-between">
+          <p className="font-semibold text-gray-800">
+            {comment.createdBy.name}
+          </p>
+          {comment.createdAt && (
+            <span className="text-sm text-gray-400">
+              {new Date(comment.createdAt).toLocaleDateString()}
+            </span>
+          )}
+        </div>
+        <p className="mt-2 text-gray-700 leading-relaxed">{comment.content}</p>
       </div>
     </div>
   );
