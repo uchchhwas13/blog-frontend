@@ -5,6 +5,7 @@ import type { BlogDetailsModel } from '../../type/blog.types';
 import { BlogHeader } from './BlogHeader';
 import { BlogBody } from './BlogBody';
 import { CommentSection } from './CommentSection';
+import { BlogDetailsShimmerPage } from './BlogDetailsShimmerPage';
 
 const BlogDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,11 +22,6 @@ const BlogDetails = () => {
       }
     });
   }, []);
-
-  if (!model) {
-    return <div className="text-center mt-20 text-gray-500">Loading...</div>;
-  }
-
   const handleAddComment = async (content: string) => {
     if (!id) return;
 
@@ -46,6 +42,9 @@ const BlogDetails = () => {
       }
     });
   };
+  if (!model) {
+    return <BlogDetailsShimmerPage />;
+  }
 
   return (
     <div className="w-full pt-10">
