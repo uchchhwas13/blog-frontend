@@ -8,7 +8,7 @@ import type {
 import { API_BASE } from './constants';
 import axios from 'axios';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
-import { axiosInstance } from './api';
+import { authState } from './api';
 
 export const signupUser = async (
   userInfo: SignUpPayload
@@ -51,9 +51,11 @@ export const signinUser = async (
   }
 };
 
-export const logOut = async (): Promise<boolean> => {
+export const logOutUser = async (): Promise<boolean> => {
   try {
-    await axiosInstance.post<LogoutResponse>(`${API_BASE}/user/logout`);
+    await axios.post<LogoutResponse>(`${API_BASE}/user/logout`, {
+      userId: authState.userId,
+    });
     return true;
   } catch {
     return false;

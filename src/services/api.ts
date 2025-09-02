@@ -14,7 +14,7 @@ export type UserAuthInfo = {
   userId: string;
 };
 
-let authState: UserAuthInfo = {
+export let authState: UserAuthInfo = {
   accessToken: '',
   userId: '',
 };

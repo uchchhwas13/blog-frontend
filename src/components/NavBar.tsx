@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/blog-logo.png';
 import { useAuth } from './auth/useAuth';
 import type { UserInfo } from './auth/authContext';
-import { logOut } from '../services/authService';
+import { logOutUser } from '../services/authService';
 
 type NavItemProps = { to: string; label: string };
 
@@ -97,7 +97,7 @@ export default function NavBar() {
   const handleLogout = () => {
     setIsOpen(false);
     clearAuthState();
-    logOut();
+    logOutUser();
   };
 
   return (
