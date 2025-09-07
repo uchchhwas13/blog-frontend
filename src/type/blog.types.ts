@@ -29,7 +29,7 @@ export type BlogContent = {
   body: string;
   coverImageUrl: string;
   createdAt: string;
-  likedByUser: boolean;
+  isLikedByUser: boolean;
   totalLikes: number;
   createdBy: {
     name: string;
@@ -83,3 +83,5 @@ type LikersSuccessResponse = {
 };
 
 export type LikersResponse = ApiResponse<LikersSuccessResponse>;
+
+export type ToggleLikeResponse = ApiResponse<{ isLiked: boolean }>;
