@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { createComment, fetchBlogDetails } from '../../services/blogService';
+import {
+  createComment,
+  fetchBlogDetails,
+  toggleLike,
+} from '../../services/blogService';
 import type { BlogDetailsModel } from '../../type/blog.types';
 import { BlogHeader } from './BlogHeader';
 import { BlogBody } from './BlogBody';
@@ -16,6 +20,7 @@ const BlogDetails = () => {
   useEffect(() => {
     if (!id) return;
     fetchBlogDetails(id).then((response) => {
+      console.log('Blog details response', response);
       if (response.data) {
         setModel(response.data);
       } else {
@@ -54,15 +59,35 @@ const BlogDetails = () => {
             ...prev,
             blog: {
               ...prev.blog,
-              likedByUser: !prev.blog.likedByUser,
-              totalLikes: prev.blog.likedByUser
+              isLikedByUser: !prev.blog.isLikedByUser,
+              totalLikes: prev.blog.isLikedByUser
                 ? prev.blog.totalLikes - 1
                 : prev.blog.totalLikes + 1,
             },
           }
         : prev
     );
-    // Here you would typically also make an API call to update the like status on the server
+    const response = await toggleLike(id, !model.blog.isLikedByUser);
+    console.log('Like response', response);
+    if (!response.success) {
+      console.log(response.error);
+      setModel((prev) =>
+        prev
+          ? {
+              ...prev,
+              blog: {
+                ...prev.blog,
+                isLikedByUser: prev.blog.isLikedByUser,
+                totalLikes: prev.blog.isLikedByUser
+                  ? prev.blog.totalLikes + 1
+                  : prev.blog.totalLikes - 1,
+              },
+            }
+          : prev
+      );
+      setToastMessage('Failed to update like status');
+      setTimeout(() => setToastMessage(''), 2000);
+    }
   };
 
   if (!model) {
@@ -74,7 +99,7 @@ const BlogDetails = () => {
       <BlogHeader blog={model.blog} />
       <BlogBody body={model.blog.body} />
       <LikeSection
-        likedByUser={model.blog.likedByUser}
+        likedByUser={model.blog.isLikedByUser}
         totalLikes={model.blog.totalLikes}
         onToggle={handleToggleLike}
         blogId={model.blog.id}
