@@ -23,7 +23,6 @@ LikeButtonProps) => {
   const { user } = useAuth();
   return (
     <div className="flex items-center gap-3 my-4 px-12 py-5">
-      {/* Like toggle button */}
       {user.isLoggedIn ? (
         <button
           onClick={handleLikeButtonClick}
@@ -39,10 +38,9 @@ LikeButtonProps) => {
           />
         </button>
       ) : (
-        <text className="text-gray-500">Please log in to like this post</text>
+        <span className="text-gray-500">Please log in to like this post</span>
       )}
 
-      {/* Clickable like count */}
       <button
         //onClick={onShowLikes}
         className="font-medium text-gray-700 hover:underline"
