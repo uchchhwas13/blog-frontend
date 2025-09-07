@@ -77,6 +77,7 @@ const BlogDetails = () => {
         likedByUser={model.blog.likedByUser}
         totalLikes={model.blog.totalLikes}
         onToggle={handleToggleLike}
+        blogId={model.blog.id}
       />
       <CommentSection
         comments={model.comments}
