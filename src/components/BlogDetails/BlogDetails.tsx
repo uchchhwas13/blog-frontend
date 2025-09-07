@@ -23,6 +23,7 @@ const BlogDetails = () => {
       }
     });
   }, []);
+
   const handleAddComment = async (content: string) => {
     if (!id) return;
 
@@ -44,7 +45,25 @@ const BlogDetails = () => {
     });
   };
 
-  const handleToggleLike = async () => {};
+  const handleToggleLike = async () => {
+    if (!id || !model) return;
+
+    setModel((prev) =>
+      prev
+        ? {
+            ...prev,
+            blog: {
+              ...prev.blog,
+              likedByUser: !prev.blog.likedByUser,
+              totalLikes: prev.blog.likedByUser
+                ? prev.blog.totalLikes - 1
+                : prev.blog.totalLikes + 1,
+            },
+          }
+        : prev
+    );
+    // Here you would typically also make an API call to update the like status on the server
+  };
 
   if (!model) {
     return <BlogDetailsShimmerPage />;
