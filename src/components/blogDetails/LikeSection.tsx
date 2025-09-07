@@ -15,8 +15,7 @@ export const LikeSection = ({
   totalLikes,
   onToggle,
   blogId,
-}: //onShowLikes,
-LikeButtonProps) => {
+}: LikeButtonProps) => {
   const handleLikeButtonClick = () => {
     setIsLiked(!isLiked);
     onToggle();
