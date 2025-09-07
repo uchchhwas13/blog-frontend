@@ -29,6 +29,8 @@ export type BlogContent = {
   body: string;
   coverImageUrl: string;
   createdAt: string;
+  likedByUser: boolean;
+  totalLikes: number;
   createdBy: {
     name: string;
     imageUrl: string;

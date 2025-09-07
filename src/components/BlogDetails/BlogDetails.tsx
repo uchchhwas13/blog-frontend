@@ -6,6 +6,7 @@ import { BlogHeader } from './BlogHeader';
 import { BlogBody } from './BlogBody';
 import { CommentSection } from './CommentSection';
 import { BlogDetailsShimmerPage } from './BlogDetailsShimmerPage';
+import { LikeSection } from './LikeSection';
 
 const BlogDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,6 +43,9 @@ const BlogDetails = () => {
       }
     });
   };
+
+  const handleToggleLike = async () => {};
+
   if (!model) {
     return <BlogDetailsShimmerPage />;
   }
@@ -50,6 +54,11 @@ const BlogDetails = () => {
     <div className="w-full pt-10">
       <BlogHeader blog={model.blog} />
       <BlogBody body={model.blog.body} />
+      <LikeSection
+        likedByUser={model.blog.likedByUser}
+        totalLikes={model.blog.totalLikes}
+        onToggle={handleToggleLike}
+      />
       <CommentSection
         comments={model.comments}
         onAddComment={handleAddComment}
