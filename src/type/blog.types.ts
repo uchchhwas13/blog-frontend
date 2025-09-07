@@ -70,3 +70,16 @@ export type AddBlogResponse = {
 };
 
 export type CreateBlogResponse = ApiResponse<AddBlogResponse>;
+
+type Liker = {
+  userId: string;
+  name: string;
+  imageUrl: string;
+};
+
+type LikersSuccessResponse = {
+  success: boolean;
+  users: Liker[];
+};
+
+export type LikersResponse = ApiResponse<LikersSuccessResponse>;

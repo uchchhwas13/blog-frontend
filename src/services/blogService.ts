@@ -4,6 +4,7 @@ import type {
   BlogDetailsResponse,
   BlogListResponse,
   CreateBlogResponse,
+  LikersResponse,
   PostedCommentResponse,
 } from '../type/blog.types';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
@@ -71,6 +72,21 @@ export const createComment = async (
     const response = await axiosInstance.post<PostedCommentResponse>(
       `${API_BASE}/blogs/${blogId}/comments`,
       { content }
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      message: extractMessage(error),
+      error: extractError(error),
+    };
+  }
+};
+
+export const fetchLikers = async (blogId: string): Promise<LikersResponse> => {
+  try {
+    const response = await axiosInstance.get<LikersResponse>(
+      `${API_BASE}/blogs/${blogId}/likes`
     );
     return response.data;
   } catch (error) {
