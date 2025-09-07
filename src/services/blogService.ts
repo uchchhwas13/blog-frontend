@@ -6,6 +6,7 @@ import type {
   CreateBlogResponse,
   LikersResponse,
   PostedCommentResponse,
+  ToggleLikeResponse,
 } from '../type/blog.types';
 import { extractError, extractMessage } from '../utils/extractErrorMessage';
 import { API_BASE } from './constants';
@@ -28,7 +29,7 @@ export const fetchBlogDetails = async (
   id: string
 ): Promise<BlogDetailsResponse> => {
   try {
-    const response = await axios.get<BlogDetailsResponse>(
+    const response = await axiosInstance.get<BlogDetailsResponse>(
       `${API_BASE}/blogs/${id}`
     );
     return response.data;
@@ -87,6 +88,25 @@ export const fetchLikers = async (blogId: string): Promise<LikersResponse> => {
   try {
     const response = await axiosInstance.get<LikersResponse>(
       `${API_BASE}/blogs/${blogId}/likes`
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      message: extractMessage(error),
+      error: extractError(error),
+    };
+  }
+};
+
+export const toggleLike = async (
+  blogId: string,
+  isLiked: boolean
+): Promise<ToggleLikeResponse> => {
+  try {
+    const response = await axiosInstance.post<ToggleLikeResponse>(
+      `${API_BASE}/blogs/${blogId}/likes`,
+      { isLiked }
     );
     return response.data;
   } catch (error) {
