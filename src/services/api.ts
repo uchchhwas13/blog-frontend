@@ -6,7 +6,6 @@ import { retrieveRefreshToken } from '../utils/storage';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',
-  withCredentials: true,
 });
 
 export type UserAuthInfo = {
