@@ -5,10 +5,10 @@ import {
 } from 'react-router-dom';
 import Layout from '../Layout';
 import Home from '../home/Home';
-import BlogDetails from '../blogDetails/BlogDetails';
+import BlogDetails from '../blog-details/BlogDetails';
 import { SignUpPage } from '../auth/Signup';
 import { SignInPage } from '../auth/Signin';
-import { AddBlogPage } from '../addBlog/AddBlog';
+import { AddBlogPage } from '../add-blog/AddBlog';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AboutPage } from '../About';
 import { ContactPage } from '../Contact';
