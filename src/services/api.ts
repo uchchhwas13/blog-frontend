@@ -3,9 +3,10 @@ import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { refreshAccessToken } from './refreshApi';
 import { logout } from './logoutService';
 import { retrieveRefreshToken } from '../utils/storage';
+import { API_BASE } from './constants';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: API_BASE,
 });
 
 export type UserAuthInfo = {

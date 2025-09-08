@@ -30,7 +30,7 @@ export const fetchBlogDetails = async (
 ): Promise<BlogDetailsResponse> => {
   try {
     const response = await axiosInstance.get<BlogDetailsResponse>(
-      `${API_BASE}/blogs/${id}`
+      `/blogs/${id}`
     );
     return response.data;
   } catch (error) {
@@ -47,7 +47,7 @@ export const createBlog = async (
 ): Promise<CreateBlogResponse> => {
   try {
     const response = await axiosInstance.post<CreateBlogResponse>(
-      `${API_BASE}/blogs`,
+      `/blogs`,
       payload,
       {
         headers: {
@@ -71,7 +71,7 @@ export const createComment = async (
 ): Promise<PostedCommentResponse> => {
   try {
     const response = await axiosInstance.post<PostedCommentResponse>(
-      `${API_BASE}/blogs/${blogId}/comments`,
+      `/blogs/${blogId}/comments`,
       { content }
     );
     return response.data;
@@ -87,7 +87,7 @@ export const createComment = async (
 export const fetchLikers = async (blogId: string): Promise<LikersResponse> => {
   try {
     const response = await axiosInstance.get<LikersResponse>(
-      `${API_BASE}/blogs/${blogId}/likes`
+      `/blogs/${blogId}/likes`
     );
     return response.data;
   } catch (error) {
@@ -105,7 +105,7 @@ export const toggleLike = async (
 ): Promise<ToggleLikeResponse> => {
   try {
     const response = await axiosInstance.post<ToggleLikeResponse>(
-      `${API_BASE}/blogs/${blogId}/likes`,
+      `/blogs/${blogId}/likes`,
       { isLiked }
     );
     return response.data;
