@@ -11,23 +11,24 @@ import { BlogBody } from './BlogBody';
 import { CommentSection } from './CommentSection';
 import { BlogDetailsShimmerPage } from './BlogDetailsShimmerPage';
 import { LikeSection } from './LikeSection';
+import { useAuth } from '../auth/useAuth';
 
 const BlogDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [model, setModel] = useState<BlogDetailsModel>();
   const [toastMessage, setToastMessage] = useState<string>('');
+  const { isInitializing } = useAuth();
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || isInitializing) return;
     fetchBlogDetails(id).then((response) => {
-      console.log('Blog details response', response);
       if (response.data) {
         setModel(response.data);
       } else {
         console.log(response.error);
       }
     });
-  }, []);
+  }, [isInitializing]);
 
   const handleAddComment = async (content: string) => {
     if (!id) return;

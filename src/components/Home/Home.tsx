@@ -3,12 +3,15 @@ import type { BlogModel } from '../../type/blog.types';
 import { fetchBlogList } from '../../services/blogService';
 import { BlogItem } from './BlogItem';
 import HomePageShimmer from './HomePageShimmer';
+import { useAuth } from '../auth/useAuth';
 
 export const Home = (): React.JSX.Element => {
   const [blogs, setBlogs] = useState<BlogModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { isInitializing } = useAuth();
 
   useEffect(() => {
+    if (isInitializing) return;
     fetchBlogList().then((response) => {
       setIsLoading(false);
       if (response.error) {
@@ -17,9 +20,9 @@ export const Home = (): React.JSX.Element => {
         setBlogs(response.data?.blogs || []);
       }
     });
-  }, []);
+  }, [isInitializing]);
 
-  if (isLoading) {
+  if (isInitializing || isLoading) {
     return <HomePageShimmer />;
   }
   return (

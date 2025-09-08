@@ -29,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return initialUserInfo;
   };
   const [user, setUser] = useState<UserInfo>(getStoredUserInfo());
+  const [isInitializing, setIsInitializing] = useState(true);
 
   const setUserInfo = (userInfo: UserInfo) => {
     setUser(userInfo);
@@ -45,12 +46,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    console.log(' useEffect called');
     const refreshToken = retrieveRefreshToken();
     if (refreshToken) {
       refreshAuthTokens(refreshToken);
     } else {
       clearAuthState();
+      setIsInitializing(false);
     }
   }, []);
 
@@ -63,11 +64,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .catch((error) => {
         console.log('Error: ', error);
         clearAuthState();
+      })
+      .finally(() => {
+        setIsInitializing(false);
       });
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUserInfo, clearAuthState }}>
+    <AuthContext.Provider
+      value={{ user, setUserInfo, clearAuthState, isInitializing }}
+    >
       {children}
     </AuthContext.Provider>
   );
