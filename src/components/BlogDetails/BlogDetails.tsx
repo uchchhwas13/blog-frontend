@@ -52,35 +52,32 @@ const BlogDetails = () => {
 
   const handleToggleLike = async () => {
     if (!id || !model) return;
-
+    const prevLiked = model.blog.isLikedByUser;
+    const prevLikes = model.blog.totalLikes;
     setModel((prev) =>
       prev
         ? {
             ...prev,
             blog: {
               ...prev.blog,
-              isLikedByUser: !prev.blog.isLikedByUser,
-              totalLikes: prev.blog.isLikedByUser
-                ? prev.blog.totalLikes - 1
-                : prev.blog.totalLikes + 1,
+              isLikedByUser: !prevLiked,
+              totalLikes: prevLiked ? prevLikes - 1 : prevLikes + 1,
             },
           }
         : prev
     );
-    const response = await toggleLike(id, !model.blog.isLikedByUser);
-    console.log('Like response', response);
+
+    const response = await toggleLike(id, !prevLiked);
+
     if (!response.success) {
-      console.log(response.error);
       setModel((prev) =>
         prev
           ? {
               ...prev,
               blog: {
                 ...prev.blog,
-                isLikedByUser: prev.blog.isLikedByUser,
-                totalLikes: prev.blog.isLikedByUser
-                  ? prev.blog.totalLikes + 1
-                  : prev.blog.totalLikes - 1,
+                isLikedByUser: prevLiked,
+                totalLikes: prevLikes,
               },
             }
           : prev
