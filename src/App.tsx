@@ -1,13 +1,14 @@
-import './App.css';
+import './index.css';
+import { RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './components/auth/AuthProvider.tsx';
+import { router } from './components/router/Routes.tsx';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <div>
-        <h1>Blog website</h1>
-      </div>
-    </>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
-}
+};
 
 export default App;
