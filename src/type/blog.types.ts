@@ -19,6 +19,7 @@ export type Comment = {
   createdBy: {
     name: string;
     imageUrl: string;
+    id: string;
   };
   createdAt: string;
 };
