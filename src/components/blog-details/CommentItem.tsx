@@ -1,5 +1,5 @@
 import { useAuth } from '../auth/useAuth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Comment } from '../../type/blog.types';
 
 type CommentItemProps = {
