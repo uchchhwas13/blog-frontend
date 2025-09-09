@@ -75,7 +75,7 @@ export type CreateBlogResponse = ApiResponse<AddBlogResponse>;
 export type Liker = {
   id: string;
   name: string;
-  imageUrl: string;
+  profileImageUrl: string;
 };
 
 type LikersSuccessResponse = {
