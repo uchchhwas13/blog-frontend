@@ -4,6 +4,7 @@ import {
   createComment,
   fetchBlogDetails,
   toggleLike,
+  updateComment,
 } from '../../services/blogService';
 import type { BlogDetailsModel } from '../../type/blog.types';
 import { BlogHeader } from './BlogHeader';
@@ -35,7 +36,7 @@ const BlogDetails = () => {
 
     createComment(id, content).then((response) => {
       if (response.data?.comment != null) {
-        const newComment = response.data?.comment;
+        const newComment = response.data.comment;
         setModel((prev) =>
           prev
             ? {
@@ -46,6 +47,28 @@ const BlogDetails = () => {
         );
       } else {
         setToastMessage('Failed to post comment');
+        setTimeout(() => setToastMessage(''), 2000);
+      }
+    });
+  };
+
+  const handleUpdateComment = async (commentId: string, content: string) => {
+    if (!id) return;
+    updateComment(id, commentId, content).then((response) => {
+      if (response.data?.comment != null) {
+        const updatedComment = response.data.comment;
+        setModel((prev) =>
+          prev
+            ? {
+                ...prev,
+                comments: prev.comments.map((comment) =>
+                  comment.id === commentId ? updatedComment : comment
+                ),
+              }
+            : prev
+        );
+      } else {
+        setToastMessage('Failed to update comment');
         setTimeout(() => setToastMessage(''), 2000);
       }
     });
@@ -105,6 +128,7 @@ const BlogDetails = () => {
       <CommentSection
         comments={model.comments}
         onAddComment={handleAddComment}
+        onUpdate={handleUpdateComment}
       />
       {toastMessage && (
         <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg">

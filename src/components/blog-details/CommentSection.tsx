@@ -6,11 +6,13 @@ import { CommentBox } from './CommentBox';
 type CommentSectionProps = {
   comments: Comment[];
   onAddComment: (content: string) => void;
+  onUpdate: (commentId: string, content: string) => void;
 };
 
 export const CommentSection = ({
   comments,
   onAddComment,
+  onUpdate,
 }: CommentSectionProps) => {
   const { user } = useAuth();
 
@@ -25,7 +27,11 @@ export const CommentSection = ({
       ) : (
         <div className="space-y-6">
           {comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} />
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              onUpdate={onUpdate}
+            />
           ))}
         </div>
       )}

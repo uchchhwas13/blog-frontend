@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 export type UserInfo = {
+  id: string;
   fullName: string;
   isLoggedIn: boolean;
 };

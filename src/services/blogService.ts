@@ -84,6 +84,27 @@ export const createComment = async (
   }
 };
 
+export const updateComment = async (
+  blogId: string,
+  commentId: string,
+  content: string
+): Promise<PostedCommentResponse> => {
+  try {
+    const response = await axiosInstance.put<PostedCommentResponse>(
+      `/blogs/${blogId}/comments/${commentId}`,
+      { content }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error updating comment:', error);
+    return {
+      success: false,
+      message: extractMessage(error),
+      error: extractError(error),
+    };
+  }
+};
+
 export const fetchLikers = async (blogId: string): Promise<LikersResponse> => {
   try {
     const response = await axiosInstance.get<LikersResponse>(

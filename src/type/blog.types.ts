@@ -19,6 +19,7 @@ export type Comment = {
   createdBy: {
     name: string;
     imageUrl: string;
+    id: string;
   };
   createdAt: string;
 };
@@ -71,10 +72,10 @@ export type AddBlogResponse = {
 
 export type CreateBlogResponse = ApiResponse<AddBlogResponse>;
 
-type Liker = {
-  userId: string;
+export type Liker = {
+  id: string;
   name: string;
-  imageUrl: string;
+  profileImageUrl: string;
 };
 
 type LikersSuccessResponse = {

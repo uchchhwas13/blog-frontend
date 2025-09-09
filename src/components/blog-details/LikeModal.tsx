@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchLikers } from '../../services/blogService';
-
-type Liker = {
-  userId: string;
-  name: string;
-  imageUrl: string;
-};
+import type { Liker } from '../../type/blog.types';
 
 type LikesModalProps = {
   isOpen: boolean;
@@ -46,9 +41,9 @@ export const LikesModal = ({ isOpen, onClose, blogId }: LikesModalProps) => {
         {/* List of likers */}
         <ul className="divide-y">
           {likers.map((user) => (
-            <li key={user.userId} className="flex items-center gap-3 px-4 py-2">
+            <li key={user.id} className="flex items-center gap-3 px-4 py-2">
               <img
-                src={user.imageUrl}
+                src={user.profileImageUrl}
                 alt={user.name}
                 className="w-8 h-8 rounded-full"
               />
