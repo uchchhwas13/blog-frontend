@@ -58,6 +58,7 @@ export const SignInPage = (): React.JSX.Element => {
   const handleSuccessfulSignin = async (data: SignInSuccessResponse) => {
     resetCredentials();
     const userInfo = {
+      id: data.user.id,
       fullName: data.user.name,
       isLoggedIn: true,
     };

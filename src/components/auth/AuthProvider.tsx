@@ -14,6 +14,7 @@ import {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialUserInfo: UserInfo = {
+    id: '',
     fullName: '',
     isLoggedIn: false,
   };
