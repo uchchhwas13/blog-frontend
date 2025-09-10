@@ -29,7 +29,7 @@ const BlogDetails = () => {
         console.log(response.error);
       }
     });
-  }, [isInitializing]);
+  }, [isInitializing, id]);
 
   const handleAddComment = async (content: string) => {
     if (!id) return;
