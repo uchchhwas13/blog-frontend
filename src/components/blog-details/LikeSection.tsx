@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { useAuth } from '../auth/useAuth';
 import { LikesModal } from './LikeModal';
+import { useDebounce } from './debounceHook';
 
 type LikeButtonProps = {
   likedByUser: boolean;
@@ -16,18 +17,24 @@ export const LikeSection = ({
   onToggle,
   blogId,
 }: LikeButtonProps) => {
+  const [isLiked, setIsLiked] = useState(likedByUser);
+  const { user } = useAuth();
+  const [isLikesOpen, setIsLikesOpen] = useState(false);
+  const debouncedIsLiked = useDebounce(isLiked);
+
+  useEffect(() => {
+    if (debouncedIsLiked !== likedByUser) {
+      onToggle();
+    }
+  }, [debouncedIsLiked, likedByUser, onToggle]);
+
   const handleLikeButtonClick = () => {
     setIsLiked(!isLiked);
-    onToggle();
   };
 
   const showLikesModal = () => {
     setIsLikesOpen(true);
   };
-
-  const [isLiked, setIsLiked] = useState(likedByUser);
-  const { user } = useAuth();
-  const [isLikesOpen, setIsLikesOpen] = useState(false);
 
   return (
     <div className="flex items-center gap-3 my-4 px-12 py-5">
