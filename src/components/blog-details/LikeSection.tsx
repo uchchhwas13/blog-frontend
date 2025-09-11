@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { useAuth } from '../auth/useAuth';
 import { LikesModal } from './LikeModal';
-import { useDebounce } from './debounceHook';
+import { useDebounce } from '../../hooks/debounceHook';
 
 type LikeButtonProps = {
   likedByUser: boolean;
