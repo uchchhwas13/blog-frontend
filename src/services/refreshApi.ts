@@ -14,7 +14,7 @@ export const refreshAccessToken = async (
   refreshToken: string
 ): Promise<RefreshTokenSuccessResponse> => {
   const response = await refreshAxios.post<RefreshTokenResponse>(
-    '/user/refresh-access-token',
+    '/user/token/refresh',
     {
       refreshToken,
     }
