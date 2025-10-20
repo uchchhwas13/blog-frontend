@@ -7,8 +7,18 @@ export type BlogModel = {
   createdAt: string;
 };
 
+type PaginationModel = {
+  currentPage: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+};
+
 type BlogListData = {
   blogs: BlogModel[];
+  pagination: PaginationModel;
 };
 
 export type BlogListResponse = ApiResponse<BlogListData>;
@@ -75,7 +85,7 @@ export type CreateBlogResponse = ApiResponse<AddBlogResponse>;
 export type Liker = {
   id: string;
   name: string;
-  profileImageUrl: string;
+  imageUrl: string;
 };
 
 type LikersSuccessResponse = {

@@ -43,7 +43,7 @@ export const LikesModal = ({ isOpen, onClose, blogId }: LikesModalProps) => {
           {likers.map((user) => (
             <li key={user.id} className="flex items-center gap-3 px-4 py-2">
               <img
-                src={user.profileImageUrl}
+                src={user.imageUrl}
                 alt={user.name}
                 className="w-8 h-8 rounded-full"
               />
