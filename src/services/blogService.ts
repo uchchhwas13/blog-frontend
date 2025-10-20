@@ -12,9 +12,14 @@ import { extractError, extractMessage } from '../utils/extractErrorMessage';
 import { API_BASE } from './constants';
 import { axiosInstance } from './api';
 
-export const fetchBlogList = async (): Promise<BlogListResponse> => {
+export const fetchBlogList = async (
+  page = 1,
+  pageSize = 9
+): Promise<BlogListResponse> => {
   try {
-    const response = await axios.get<BlogListResponse>(`${API_BASE}/blogs`);
+    const response = await axios.get<BlogListResponse>(
+      `${API_BASE}/blogs?page=${page}&page_size=${pageSize}`
+    );
     return response.data;
   } catch (error) {
     return {
