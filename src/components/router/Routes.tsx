@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Layout from '../Layout';
-import Home from '../home/Home';
+import { Home } from '../home/Home';
 import BlogDetails from '../blog-details/BlogDetails';
 import { SignUpPage } from '../auth/Signup';
 import { SignInPage } from '../auth/Signin';

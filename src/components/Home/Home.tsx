@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { BlogModel } from '../../type/blog.types';
 import { fetchBlogList } from '../../services/blogService';
 import { BlogItem } from './BlogItem';
-import HomePageShimmer from './HomePageShimmer';
+import { HomePageShimmer } from './HomePageShimmer';
 import { useAuth } from '../auth/useAuth';
 
 export const Home = (): React.JSX.Element => {
@@ -69,5 +69,3 @@ export const Home = (): React.JSX.Element => {
     </div>
   );
 };
-
-export default Home;
