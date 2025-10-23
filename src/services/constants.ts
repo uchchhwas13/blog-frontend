@@ -1,1 +1,1 @@
-export const API_BASE = 'http://98.94.19.176:3000';
+export const API_BASE = 'https://roy-uchchhwas.duckdns.org';
