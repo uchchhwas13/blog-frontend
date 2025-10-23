@@ -5,9 +5,10 @@ import type {
   RefreshTokenResponse,
 } from '../type/auth.types';
 import { saveRefreshToken } from '../utils/storage';
+import { API_BASE } from './constants';
 
 const refreshAxios = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: API_BASE,
 });
 
 export const refreshAccessToken = async (
