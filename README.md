@@ -102,6 +102,22 @@ Check code quality and TypeScript issues:
 npm run lint
 ```
 
+## Docker Setup
+
+Build and run the application in Docker:
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at `http://localhost:3001`
+
+**Additional commands:**
+
+- Run in background: `docker-compose up --build -d`
+- Stop container: `docker-compose down`
+- View logs: `docker-compose logs -f`
+
 ## Getting Started
 
 1. Install dependencies: `npm install`
